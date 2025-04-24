@@ -1,161 +1,115 @@
-/***********************
- * JavaScript OOP Cheat Sheet
- * Covers: Classes, Objects, Inheritance, Encapsulation, Polymorphism, Prototypes
- ***********************/
 
-/* 1. Constructor Function (Old way - Pre ES6) */
-function Person(name, age) {
+
+// inheritace 
+
+class Person {
+  // Constructor function
+  constructor(name, age) {
     this.name = name;
     this.age = age;
   }
+
+  // Method to greet
+  greet() {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+}
+
+let person1 = new Person("Hasan", 25);
+
+console.log(person1.greet());
+
+
+class Employee extends Person{
+    constructor(name, age, designation){
+       super(name, age);
+       this.designation= designation;
+    }
+}
+
+let employee1= new Employee("Kahaled", 24, "Manager");
+console.log(employee1.greet());
+
+// access modifire 
+//1.public 2.private 3.protected
+
+ /* 3. Encapsulation (Private Fields using #) */
+  // class Car {
+  //   #engineNumber;
   
-  Person.prototype.sayHello = function () {
-    console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`);
-  };
+  //   constructor(brand, engineNumber) {
+  //     this.brand = brand;
+  //     this.#engineNumber = engineNumber;
+  //   }
+  
+  //   getEngineNumber() {
+  //     return this.#engineNumber;
+  //   }
+  
+  //   setEngineNumber(newNumber) {
+  //     this.#engineNumber = newNumber;
+  //   }
+  // }
+
+  // let car = new Car("Nishan", "b614");
+
+  // console.log(car1.setEngineNumber("H31"));
+  // console.log(car1.getEngineNumber());
   
 
+//  // 4. Abstraction (Hiding Complexity)
+//   class Car {
+//     constructor(model, year) {
+//       this.model = model;
+//       this.year = year;
+//     }
   
-  const person1 = new Person("Alice", 30);
-  person1.sayHello();
+//     // Abstracting the complexity of starting the engine
+//     startEngine() {
+//       this._engineStart();
+//     }
   
-  console.log(Person.prototype.mobile="019");
-
-  console.log(person1.mobile);
+//     // Private method that won't be accessible outside
+//     _engineStart() {
+//       console.log(`The engine of ${this.model} (${this.year}) has started.`);
+//     }
+//   }
   
+//   const car1 = new Car('Tesla', 2022);
+//   console.log(car1.startEngine()); // Output: The engine of Tesla (2022) has started.
   
-  /* 2. ES6 Class Syntax */
+// 5. Polymorphism (Method Overriding and Overloading)
   class Animal {
-    constructor(name) {
-      this.name = name;
+    sleep(){
+
     }
-  
+    eat(){
+
+    }
     speak() {
-      console.log(`${this.name} makes a noise.`);
+      console.log('Animal makes a sound');
+    }
+    speak(sound) {
+      console.log('Animal makes a sound');
     }
   }
   
-  const animal = new Animal("Generic Animal");
-  animal.speak();
-  
-  /* 3. Inheritance (Extends + Super) */
   class Dog extends Animal {
-    constructor(name, breed) {
-      super(name); // call parent constructor
-      this.breed = breed;
-    }
-  
     speak() {
-      console.log(`${this.name} barks.`);
+      console.log('Dog barks');
     }
   }
   
-  const dog = new Dog("Rex", "German Shepherd");
-  dog.speak();
-  
-  /* 4. Encapsulation (Private Fields using #) */
-  class Car {
-    #engineNumber;
-  
-    constructor(brand, engineNumber) {
-      this.brand = brand;
-      this.#engineNumber = engineNumber;
-    }
-  
-    getEngineNumber() {
-      return this.#engineNumber;
-    }
-  
-    setEngineNumber(newNumber) {
-      this.#engineNumber = newNumber;
+  class Cat extends Animal {
+    speak() {
+      console.log('Cat meows');
     }
   }
   
-  const myCar = new Car("Toyota", "123ABC");
-  console.log(myCar.getEngineNumber()); // 123ABC
-  myCar.setEngineNumber("456DEF");
+  // Creating instances and calling the overridden method
+  const dog = new Dog();
+  const cat = new Cat();
   
-  /* 5. Polymorphism (Overriding Methods) */
-  class Bird {
-    fly() {
-      console.log("Bird flies.");
-    }
-  }
-  
-  class Eagle extends Bird {
-    fly() {
-      console.log("Eagle soars high.");
-    }
-  }
-  
-  const bird = new Bird();
-  const eagle = new Eagle();
-  bird.fly();
-  eagle.fly();
-  
-  /* 6. Static Methods and Properties */
-  class MathHelper {
-    static PI = 3.14159;
-  
-    static square(x) {
-      return x * x;
-    }
-  }
-  
-  console.log(MathHelper.square(4)); // 16
-  console.log(MathHelper.PI); // 3.14159
-  
-  /* 7. Object Literals */
-  const student = {
-    name: "John",
-    age: 20,
-    greet() {
-      console.log(`Hello, my name is ${this.name}.`);
-    }
-  };
-  student.greet();
-  
-  /* 8. Factory Function */
-  function createUser(username, role) {
-    return {
-      username,
-      role,
-      describe() {
-        console.log(`${this.username} is a ${this.role}`);
-      }
-    };
-  }
-  const admin = createUser("admin", "Administrator");
-  admin.describe();
-  
-  /* 9. Prototype Chain Example */
-  function Shape() {}
-  Shape.prototype.type = "shape";
-  
-  function Square() {}
-  Square.prototype = Object.create(Shape.prototype);
-  
-  const sq = new Square();
-  console.log(sq.type); // shape
-  
-  /* 10. Getter & Setter */
-  class Employee {
-    constructor(name) {
-      this._name = name;
-    }
-  
-    get name() {
-      return this._name;
-    }
-  
-    set name(newName) {
-      this._name = newName;
-    }
-  }
-  
-  const emp = new Employee("Sara");
-  console.log(emp.name);
-  emp.name = "Mike";
-  console.log(emp.name);
-  console.log(emp);
-  
+  dog.speak(); // Output: Dog barks
+  cat.speak(); // Output: Cat meows
   

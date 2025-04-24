@@ -16,3 +16,6 @@ let person1 = new Person("Salam", 'Khan', 30);
 let person2 = new Person("Jaman", 'Khan', 30);
 console.log(person1);
 console.log(person1.fullName());
+
+
+
