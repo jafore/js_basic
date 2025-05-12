@@ -42,3 +42,29 @@ addButton.addEventListener('click', (envent)=>{
     
 
 })
+
+
+ fetch('https://dummyjson.com/todos')
+.then(res=> res.json())
+.then(data=> {
+    console.log(data)
+
+ let liList= '';
+data.todos.forEach(task =>{
+    liList+= `<li>${task.todo}</li>`;
+})
+let printTasks= document.getElementById('TaskList');
+printTasks.innerHTML=liList
+
+})
+.catch(erro=> console.log(erro))
+
+
+
+async function fetchTask(){
+   let res = await fetch('https://dummyjson.com/todos')
+   let data= await res.json();
+
+   console.log(data);
+   
+}
